@@ -22,10 +22,6 @@
     "url": "https://github.com/BuildForSDG/js-starter/issues"
   },
   "license": "MIT",
-  "engines": {
-    "npm": "6.11.3",
-    "node": "12.9.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
