@@ -1,7 +1,7 @@
 The app is meant to make it easy for farmers to be able to lease out their pieces of land, farm tools and other equipment to other farmers if they are not being utilized.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/279e60476598422289f5fe5d9c046546)](https://app.codacy.com/gh/BuildForSDG/Okoa-Farmer-Frontend?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDG/Okoa-Farmer-Frontend&utm_campaign=Badge_Grade_Settings)
-[![Codacy Badge](https://img.shields.io/badge/Code%20Quality-D-red)](https://img.shields.io/badge/Code%20Quality-D-red)
+
 
 ## About
 
