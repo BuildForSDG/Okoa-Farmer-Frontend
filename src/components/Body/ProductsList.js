@@ -1,7 +1,16 @@
 import React from 'react';
 
 // reactstrap components
-import { Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Container, Row, Col } from 'reactstrap';
+import {
+  Card,
+  CardImg,
+  CardBody, //CardTitle,
+  CardSubtitle,
+  CardText,
+  Container,
+  Row,
+  Col
+} from 'reactstrap';
 //get the main sidebar in the products listing
 import MainSidebar from 'components/Sidebars/MainSidebar.js';
 

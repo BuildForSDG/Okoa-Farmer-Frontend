@@ -1,17 +1,7 @@
 import React from 'react';
 
 // reactstrap components
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Navbar,
-  NavItem,
-  NavLink,
-  Nav,
-  Container
-} from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Navbar, Nav, Container } from 'reactstrap';
 
 class MainSidebar extends React.Component {
   state = {};

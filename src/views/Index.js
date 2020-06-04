@@ -1,7 +1,7 @@
 import React from 'react';
 
 // reactstrap components
-import { Container, Row } from 'reactstrap';
+// import { Container, Row } from 'reactstrap';
 
 // core components
 import MainNavbar from 'components/Navbars/MainNavbar.js';
