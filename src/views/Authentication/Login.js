@@ -2,6 +2,7 @@ import React from 'react';
 
 // reactstrap components
 import {
+  Alert,
   Button,
   Card,
   CardHeader,
@@ -16,24 +17,118 @@ import {
   Row,
   Col
 } from 'reactstrap';
+//Get sweetalert to pop up on success
+import swal from 'sweetalert';
+//Spinner while loading
+import ClipLoader from 'react-spinners/ClipLoader';
 
 // core components
 import MainNavbar from 'components/Navbars/MainNavbar.js';
 import MainFooter from 'components/Footers/MainFooter.js';
 
+//Get the api endpoint
+import api from 'env/env.js';
+
 class Login extends React.Component {
+  state = {
+    username: '',
+    password: '',
+    errorMessage: '',
+    loading: false
+  };
+
   componentDidMount() {
+    if (localStorage.getItem('loggedin') === 'true') {
+      this.goDash();
+    }
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+    this.setState({
+      [event.target.name]: value
+    });
+    // console.log(event.target.name + ':' + value);
+  };
+
+  loginUser = () => {
+    this.setState({ loading: true });
+    if (this.state.username === '' || this.state.password === '') {
+      this.setState({ errorMessage: 'Fill in all the fields' });
+      this.setState({ loading: false });
+    } else {
+      this.setState({ errorMessage: '' });
+      let data = {
+        username: this.state.username.trim(),
+        password: this.state.password.trim()
+      };
+      console.log('data----', data);
+      api
+        .post('login', data)
+        .then((res) => {
+          console.log(res);
+          const [resMessage, resCode] = res.data;
+
+          console.log('resMessage-----', resMessage);
+          console.log('resCode-----', resCode);
+
+          if (resCode === 200) {
+            this.setState({
+              username: '',
+              password: '',
+              errorMessage: ''
+            });
+            this.setState({ loading: false });
+            console.log('Success:', resMessage);
+            // save user data to localstorage (stringify the data)
+            localStorage.setItem('loggedin', 'true');
+            localStorage.setItem('userDetails', JSON.stringify(resMessage));
+            // direct user to Dashboard
+            this.showAlert();
+          } else if (resCode === 404) {
+            console.log('Not Found:', resMessage);
+            this.setState({ loading: false, errorMessage: resMessage });
+          } else {
+            this.setState({ loading: false });
+            this.setState({ errorMessage: resMessage });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          this.setState({ loading: false, errorMessage: 'Server Error' });
+        });
+    }
+  };
+
+  goDash = () => {
+    this.props.history.push('/profile-page');
+  };
+
+  showAlert = () => {
+    swal({
+      title: 'Congratulations',
+      text: 'You have successfully logged in',
+      icon: 'success',
+      button: 'Ok'
+    }).then((willDelete) => {
+      if (willDelete) {
+        this.goDash();
+      } else {
+      }
+    });
+  };
+
   render() {
+    const { username, errorMessage } = this.state;
     return (
       <>
         <MainNavbar />
         <main ref="main">
           <section className="section section-shaped section-lg bg-gradient-success ">
-            <Container className="pt-lg-7">
+            <Container className="pt-lg-3">
               <Row className="justify-content-center">
                 <Col lg="5">
                   <Card className="bg-secondary shadow border-0">
@@ -67,8 +162,13 @@ class Login extends React.Component {
                       </div>
                     </CardHeader>
                     <CardBody className="px-lg-5 py-lg-5">
+                      {errorMessage !== '' ? <Alert color="danger">{errorMessage}</Alert> : null}
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>
+                      </div>
+                      {/* the spinner div */}
+                      <div style={{ marginLeft: 130 }}>
+                        <ClipLoader size={80} color={'#123abc'} loading={this.state.loading} />
                       </div>
                       <Form role="form">
                         <FormGroup className="mb-3">
@@ -78,7 +178,13 @@ class Login extends React.Component {
                                 <i className="ni ni-email-83" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
+                            <Input
+                              name="username"
+                              placeholder="Username"
+                              type="email"
+                              value={username}
+                              onChange={this.handleChange}
+                            />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -88,7 +194,13 @@ class Login extends React.Component {
                                 <i className="ni ni-lock-circle-open" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Password" type="password" autoComplete="off" />
+                            <Input
+                              name="password"
+                              placeholder="Password"
+                              type="password"
+                              autoComplete="off"
+                              onChange={this.handleChange}
+                            />
                           </InputGroup>
                         </FormGroup>
                         <div className="custom-control custom-control-alternative custom-checkbox">
@@ -98,7 +210,7 @@ class Login extends React.Component {
                           </label>
                         </div>
                         <div className="text-center">
-                          <Button className="my-4" color="primary" type="button">
+                          <Button className="my-4" color="primary" type="button" onClick={this.loginUser}>
                             Sign in
                           </Button>
                         </div>
