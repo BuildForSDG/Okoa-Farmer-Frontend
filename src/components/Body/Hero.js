@@ -2,7 +2,17 @@ import React from 'react';
 // nodejs library that concatenates classes
 import classnames from 'classnames';
 // reactstrap components
-import { Button, Container, Row, Col, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon
+  //InputGroupText
+} from 'reactstrap';
 
 class Hero extends React.Component {
   state = {};

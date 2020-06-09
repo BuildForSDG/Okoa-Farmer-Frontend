@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // JavaScript plugin that hides or shows a component based on your scroll
-import Headroom from 'headroom.js';
+// import Headroom from 'headroom.js';
 // reactstrap components
 import {
   Button,
@@ -10,7 +10,6 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledDropdown,
-  Media,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -18,8 +17,7 @@ import {
   Nav,
   Container,
   Row,
-  Col,
-  UncontrolledTooltip
+  Col
 } from 'reactstrap';
 
 class MainNavbar extends React.Component {
@@ -75,6 +73,11 @@ class MainNavbar extends React.Component {
                   </Row>
                 </div>
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
+                  <NavItem>
+                    <NavLink href="/">
+                      <span className="nav-link-inner--text">Home</span>
+                    </NavLink>
+                  </NavItem>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
                       <i className="ni ni-collection d-lg-none mr-1" />
@@ -90,10 +93,10 @@ class MainNavbar extends React.Component {
                       <DropdownItem to="/profile-page" tag={Link}>
                         Profile
                       </DropdownItem>
-                      <DropdownItem to="/login-page" tag={Link}>
+                      <DropdownItem to="/login" tag={Link}>
                         Login
                       </DropdownItem>
-                      <DropdownItem to="/register-page" tag={Link}>
+                      <DropdownItem to="/register" tag={Link}>
                         Register
                       </DropdownItem>
                     </DropdownMenu>
@@ -101,13 +104,13 @@ class MainNavbar extends React.Component {
                 </Nav>
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>
-                    <NavLink href="/login-page">
+                    <NavLink href="/login">
                       {/* <i className="fa fa-facebook-square" /> */}
                       <span className="nav-link-inner--text">Log In</span>
                     </NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/register-page">
+                    <NavLink href="/register">
                       {/* <i className="fa fa-facebook-square" /> */}
                       <span className="nav-link-inner--text">Register</span>
                     </NavLink>
